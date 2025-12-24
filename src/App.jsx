@@ -4,6 +4,9 @@ import OsGridRef from 'geodesy/osgridref.js';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 
+import 'leaflet-gesture-handling/dist/leaflet-gesture-handling.css';
+import 'leaflet-gesture-handling';
+
 // Leaflet Icon Fix for Vite
 import markerIcon from 'leaflet/dist/images/marker-icon.png';
 import markerShadow from 'leaflet/dist/images/marker-shadow.png';
@@ -68,6 +71,7 @@ export default function App() {
         setData(null);
       }
     } catch (err) {
+      console.error("Connection Error:", err);
       setError('Connection error');
     } finally {
       setLoading(false);
@@ -83,20 +87,20 @@ export default function App() {
           <p className="text-slate-500 font-medium">Converts postcodes to OSGB36 & WGS84</p>
         </header>
 
-        <form onSubmit={lookupPostcode} className="flex flex-col gap-3 max-w-xl mx-auto mb-12">
-          <p className="text-slate-500 font-medium flex-1  font-bold text-lg "><label for="postcode">Enter a postcode</label></p>
-          <div className="flex sm:flex-row gap-3 max-w-xl mb-12">
+        <form onSubmit={lookupPostcode} className="flex flex-col gap-3 max-w-xl  mb-10">
+          <p className="text-slate-500 font-medium flex-1  font-bold text-lg ml-2"><label for="postcode">Enter a postcode</label></p>
+          <div className="flex gap-3 max-w-xl mb-10">
           <input 
             type="text"
             id="postcode"
             placeholder=""
-            className="flex-1 px-6 py-4 rounded-2xl border-2 border-white shadow-sm focus:border-black-500 outline-none uppercase font-bold text-lg transition-all"
+            className="flex rounded-[.5rem] px-5 py-4 rounded-2xl border-2 border-white shadow-sm focus:border-yellow-500 outline-none uppercase font-bold text-lg transition-all"
             value={postcode}
             onChange={(e) => setPostcode(e.target.value)}
           />
           <button 
             type="submit"
-            className="bg-green-700 hover:bg-green-800 text-white font-bold px-8 py-4 rounded-2xl shadow-lg shadow-black-200 transition-transform active:scale-95"
+            className="rounded-[.5rem] bg-green-700 hover:bg-green-800 text-white font-bold px-7 py-4 rounded-2xl shadow-lg shadow-black-200 transition-transform active:scale-95"
           >
             {loading ? '...' : 'Search'}
           </button>
@@ -106,60 +110,55 @@ export default function App() {
         {error && <div className="text-center text-red-500 font-bold mb-8">{error}</div>}
 
         {data && (
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-            
-            {/* Left Column: Data */}
-            <div className="lg:col-span-12 space-y-6">
-              
-              {/* NGR Display */}
-              <div className="lg:col-span-7  bg-green-800 text-white p-8 rounded-[.5rem] shadow-2xl">
-                <h2 className="text-black-400 text-xs font-bold uppercase tracking-[0.2em] mb-4">National Grid Reference</h2>
-                <h3 className="text-4xl font-mono font-bold">{data.ngrFormatted}</h3>
-                
-                <div className="grid grid-cols-2 gap-6 mt-8 pt-8 border-t border-black-900">
-                  <div>
-                    <p className="text-black-400 text-[14px] uppercase font-bold block mb-1">Easting</p>
-                    <span className="text-2xl font-mono font-medium">{data.eastings}</span>
-                  </div>
-                  <div>
-                    <p className="text-black-400 text-[14px] uppercase font-bold block mb-1">Northing</p>
-                    <span className="text-2xl font-mono font-medium">{data.northings}</span>
-                  </div>
-                </div>
-              </div>
+<div className="grid grid-cols-12 w-full gap-8">
+  
+  {/* Row 1: NGR Display */}
+  <div className="col-span-12 bg-green-800 text-white p-8 rounded-[.5rem] shadow-2xl">
+    <h2 className="text-black-400 text-xs font-bold uppercase tracking-[0.2em] mb-4">National Grid Reference</h2>
+    <h3 className="text-4xl font-mono font-bold">{data.ngrFormatted}</h3>
+    
+    <div className="grid grid-cols-12 gap-6 mt-8 pt-8 border-t border-black-900">
+      <div className="col-span-6 lg:col-span-3">
+        <p className="text-black-400 text-[14px] uppercase font-bold block mb-1">Easting</p>
+        <span className="text-2xl font-mono font-medium">{data.eastings}</span>
+      </div>
+      <div className="col-span-6 "> 
+        <p className="text-black-400 text-[14px] uppercase font-bold block mb-1">Northing</p>
+        <span className="text-2xl font-mono font-medium">{data.northings}</span>
+      </div>
+    </div>
+  </div>
 
-              {/* Geo Comparison */}
-              <div className=" lg:col-span-6 bg-white p-8 rounded-[.5rem] shadow-sm border border-slate-200">
-                <h4 className="text-slate-400 text-[14px] uppercase font-bold mb-6 tracking-widest text-center">Calculated Decimal Coordinates</h4>
-                <div className="flex justify-around items-center">
-                  <div className="text-center">
-                    <span className="block text-[14px] text-slate-400 font-bold mb-1">Lattitude</span>
-                    <span className="text-xl font-mono font-bold text-black-600">{data.geoLat}°</span>
-                  </div>
-                  <div className="w-px h-10 bg-slate-100"></div>
-                  <div className="text-center">
-                    <span className="block text-[14px] text-slate-400 font-bold mb-1">Longitude</span>
-                    <span className="text-xl font-mono font-bold text-black-600">{data.geoLon}°</span>
-                  </div>
-                </div>
-              </div>
+  {/* Row 2: Geo Comparison  */}
+  <div className="col-span-12 space-y-6 bg-white p-8 rounded-[.5rem] shadow-sm border border-slate-200">
+      <h4 className="text-slate-400 text-[14px] uppercase font-bold mb-6 tracking-widest">Calculated Decimal Coordinates</h4>
+      <div className="grid grid-cols-12 gap-6 mt-8 pt-8">
+        <div className="col-span-6 lg:col-span-3"> 
+          <span className="block text-[14px] text-slate-400 font-bold mb-1">Latitude</span>
+          <span className="text-xl font-mono font-bold text-black-600">{data.geoLat}°</span>
+        </div>
+        <div className="col-span-6"> 
+          <span className="block text-[14px] text-slate-400 font-bold mb-1">Longitude</span>
+          <span className="text-xl font-mono font-bold text-black-600">{data.geoLon}°</span>
+        </div>
+      </div>
+  </div>
 
-            </div>
+  {/* Row 3: Map */}
+  <div className="col-span-12 min-h-[500px] bg-white p-3 rounded-[.5rem] shadow-xl border border-slate-200 overflow-hidden relative z-0">
+    <MapContainer 
+      center={[data.latitude, data.longitude]} 
+      zoom={15} 
+      className="h-full w-full rounded-[.5rem]"
+      gestureHandling={true}
+    >
+      <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+      <Marker position={[data.latitude, data.longitude]} />
+      <ChangeView center={[data.latitude, data.longitude]} />
+    </MapContainer>
+  </div>
 
-            {/* Right Column: Map */}
-            <div className="lg:col-span-12 min-h-[500px] bg-white p-3 rounded-[.5rem] shadow-xl border border-slate-200 overflow-hidden relative z-0">
-              <MapContainer 
-                center={[data.latitude, data.longitude]} 
-                zoom={15} 
-                className="h-full w-full rounded-[.5rem]"
-              >
-                <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-                <Marker position={[data.latitude, data.longitude]} />
-                <ChangeView center={[data.latitude, data.longitude]} />
-              </MapContainer>
-            </div>
-
-          </div>
+</div>
         )}
       </div>
     </div>
