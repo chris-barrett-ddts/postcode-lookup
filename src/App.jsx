@@ -87,25 +87,30 @@ export default function App() {
           <p className="text-slate-500 font-medium">Converts postcodes to OSGB36 & WGS84</p>
         </header>
 
-        <form onSubmit={lookupPostcode} className="flex flex-col gap-3 max-w-xl  mb-10">
-          <p className="text-slate-500 font-medium flex-1  font-bold text-lg ml-2"><label for="postcode">Enter a postcode</label></p>
-          <div className="flex gap-3 max-w-xl mb-10">
-          <input 
-            type="text"
-            id="postcode"
-            placeholder=""
-            className="flex rounded-[.5rem] px-5 py-4 rounded-2xl border-2 border-white shadow-sm focus:border-yellow-500 outline-none uppercase font-bold text-lg transition-all"
-            value={postcode}
-            onChange={(e) => setPostcode(e.target.value)}
-          />
-          <button 
-            type="submit"
-            className="rounded-[.5rem] bg-green-700 hover:bg-green-800 text-white font-bold px-7 py-4 rounded-2xl shadow-lg shadow-black-200 transition-transform active:scale-95"
-          >
-            {loading ? '...' : 'Search'}
-          </button>
-          </div>
-        </form>
+        <form onSubmit={lookupPostcode} className="w-full max-w-xl mb-10 ">
+  <p className="text-slate-500 font-bold text-lg mb-2 ml-1">
+    <label htmlFor="postcode">Enter a postcode</label>
+  </p>
+  
+
+  <div className="flex flex-col sm:flex-row gap-3">
+    <input 
+      type="text"
+      id="postcode"
+      placeholder="e.g. SW1A 1AA"
+      /* Added min-w-0 and w-full to prevent the input from forcing its own width */
+      className="w-full min-w-0 flex-1 px-5 py-4 rounded-lg border-2 border-white shadow-sm focus:border-yellow-500 outline-none uppercase font-bold text-lg transition-all"
+      value={postcode}
+      onChange={(e) => setPostcode(e.target.value)}
+    />
+    <button 
+      type="submit"
+      className="w-full sm:w-auto bg-green-700 hover:bg-green-800 text-white font-bold px-8 py-4 rounded-lg shadow-lg transition-transform active:scale-95 whitespace-nowrap"
+    >
+      {loading ? '...' : 'Search'}
+    </button>
+  </div>
+</form>
 
         {error && <div className="text-center text-red-500 font-bold mb-8">{error}</div>}
 
@@ -114,16 +119,16 @@ export default function App() {
   
   {/* Row 1: NGR Display */}
   <div className="col-span-12 bg-green-800 text-white p-8 rounded-[.5rem] shadow-2xl">
-    <h2 className="text-black-400 text-xs font-bold uppercase tracking-[0.2em] mb-4">National Grid Reference</h2>
+    <h2 className="text-black-400 text-[14px] font-bold  tracking-[0.2em] mb-4">National Grid Reference</h2>
     <h3 className="text-4xl font-mono font-bold">{data.ngrFormatted}</h3>
     
     <div className="grid grid-cols-12 gap-6 mt-8 pt-8 border-t border-black-900">
       <div className="col-span-6 lg:col-span-3">
-        <p className="text-black-400 text-[14px] uppercase font-bold block mb-1">Easting</p>
+        <p className="text-black-400 text-[14px] font-bold block mb-1">Easting</p>
         <span className="text-2xl font-mono font-medium">{data.eastings}</span>
       </div>
       <div className="col-span-6 "> 
-        <p className="text-black-400 text-[14px] uppercase font-bold block mb-1">Northing</p>
+        <p className="text-black-400 text-[14px]  font-bold block mb-1">Northing</p>
         <span className="text-2xl font-mono font-medium">{data.northings}</span>
       </div>
     </div>
@@ -131,8 +136,8 @@ export default function App() {
 
   {/* Row 2: Geo Comparison  */}
   <div className="col-span-12 space-y-6 bg-white p-8 rounded-[.5rem] shadow-sm border border-slate-200">
-      <h4 className="text-slate-400 text-[14px] uppercase font-bold mb-6 tracking-widest">Calculated Decimal Coordinates</h4>
-      <div className="grid grid-cols-12 gap-6 mt-8 pt-8">
+      <h4 className="text-slate-400 text-[14px]  font-bold mb-3 tracking-widest">Calculated Decimal Coordinates</h4>
+      <div className="grid grid-cols-12 gap-6 mt-1 pt-1">
         <div className="col-span-6 lg:col-span-3"> 
           <span className="block text-[14px] text-slate-400 font-bold mb-1">Latitude</span>
           <span className="text-xl font-mono font-bold text-black-600">{data.geoLat}°</span>
