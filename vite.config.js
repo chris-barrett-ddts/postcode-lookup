@@ -8,47 +8,50 @@ export default defineConfig({
     react(),
     tailwindcss(),
     VitePWA({
-      registerType: 'autoUpdate', // Automatically updates the SW when new content is available
+      registerType: 'autoUpdate',
+      // This helper ensures the manifest is generated correctly with the base path
+      includeManifestIcons: true, 
       workbox: {
-        // Define runtime caching for external resources
+        globPatterns: ['**/*.{js,css,html,ico,png,svg}'], // Cache all local assets
         runtimeCaching: [
           {
-            // Cache Postcode API requests
             urlPattern: ({ url }) => url.origin === 'https://api.postcodes.io',
-            handler: 'CacheFirst', // Postcodes rarely change, so CacheFirst is efficient
+            handler: 'CacheFirst',
             options: {
               cacheName: 'postcode-api-cache',
               expiration: {
                 maxEntries: 100,
-                maxAgeSeconds: 60 * 60 * 24 * 30, // 30 Days
+                maxAgeSeconds: 60 * 60 * 24 * 30,
               },
               cacheableResponse: { statuses: [0, 200] }
             }
           },
           {
-            // Cache OpenStreetMap Tiles
             urlPattern: ({ url }) => url.hostname.includes('tile.openstreetmap.org'),
             handler: 'CacheFirst',
             options: {
               cacheName: 'map-tiles-cache',
               expiration: {
-                maxEntries: 200, // Limits space used on device
-                maxAgeSeconds: 60 * 60 * 24 * 7, // 7 Days
+                maxEntries: 1000, // Increased as map tiles are numerous
+                maxAgeSeconds: 60 * 60 * 24 * 30,
               },
               cacheableResponse: { statuses: [0, 200] }
             }
           }
         ]
       },
-      includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg'],
       manifest: {
         name: 'Find a UK National Grid Reference',
-        short_name: 'NGR finder',
-        description: 'A app that helps you find the national grid reference for a postcode location',
-        theme_color: '#ffffff',
+        short_name: 'NGR Finder',
+        description: 'Convert UK postcodes to National Grid References offline.',
+        theme_color: '#166534', // Matches your green-800 theme
+        background_color: '#f8fafc', // Matches slate-50
+        display: 'standalone',
+        scope: '/postcode-lookup/',
+        start_url: '/postcode-lookup/',
         icons: [
           {
-            src: 'postcodeFaviocon.png',
+            src: 'postcodeFaviocon.png', // Ensure this is in /public/
             sizes: '192x192',
             type: 'image/png'
           },
@@ -56,7 +59,13 @@ export default defineConfig({
             src: 'postcodeFaviocon.png',
             sizes: '512x512',
             type: 'image/png',
-            purpose: 'any maskable' // Recommended for better icon fit on Android
+            purpose: 'any' 
+          },
+          {
+            src: 'postcodeFaviocon.png',
+            sizes: '512x512',
+            type: 'image/png',
+            purpose: 'maskable'
           }
         ]
       }
@@ -64,6 +73,3 @@ export default defineConfig({
   ],
   base: '/postcode-lookup/'
 })
-
-
-
