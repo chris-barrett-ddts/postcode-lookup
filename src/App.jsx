@@ -262,7 +262,7 @@ export default function App() {
                   {/* Using CartoDB Voyager (lighter than Dark Matter) */}
                   <TileLayer 
                     url={darkMode 
-                      ? "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png" 
+                      ? "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png" 
                       : "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     } 
                     attribution={darkMode 
