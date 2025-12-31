@@ -160,25 +160,35 @@ export default function App() {
   };
 
   return (
-    <div className={`min-h-screen transition-colors duration-300 font-sans 
-    ${darkMode ? 'bg-slate-950 text-slate-100' : 'bg-slate-50 text-slate-900'}`}>
-      <div className="max-w-6xl mx-auto">
-        {/* Theme Toggle Button */}
+<div className={`min-h-screen transition-colors duration-300 font-sans 
+  ${darkMode ? 'bg-slate-950 text-slate-100' : 'bg-slate-50 text-slate-900'}`}>
+  
+  <div className="max-w-6xl mx-auto px-4"> {/* Added padding for mobile edges */}
+    
+    {/* Header Container */}
+    <header className="py-6 mb-10 flex flex-col items-center">
+      
+      {/* Theme Toggle - Positioned at top right of the flex container */}
+      <div className="w-full flex justify-end mb-4">
         <button
           onClick={() => setDarkMode(!darkMode)}
-          className="absolute top-4 right-4 p-2 rounded-full bg-slate-200 text-white dark:bg-slate-800 transition-colors"
+          className={`p-2 rounded-full  transition-colors ${darkMode ? 'bg-slate-800' : 'bg-slate-200'}`}
         >
-          {darkMode ? 'Light mode' : 'Dark mode'}
+          {darkMode ? '☀️ Light' : '🌙 Dark'}
         </button>
-        <header className="mb-10 text-center relative">
+      </div>
 
-                <h1 className={`text-4xl tracking-tight  transition-colors ${darkMode ? 'text-white' : 'text-slate-900'} `}>
-                    Find a UK National Grid Reference
-                  </h1>
-                  <p className="text-slate-500 font-medium">
-                    Converts postcodes to OSGB36 & WGS84
-                  </p>
-        </header>
+      {/* Title Text */}
+      <div className="text-center">
+        <h1 className={`text-3xl md:text-4xl font-bold tracking-tight transition-colors ${darkMode ? 'text-white' : 'text-slate-900'}`}>
+          Find a UK National Grid Reference
+        </h1>
+        <p className="text-slate-500 font-medium mt-2">
+          Converts postcodes to OSGB36 & WGS84
+        </p>
+      </div>
+      
+    </header>
         <main>
           <form onSubmit={lookupPostcode} className="w-full max-w-xl mb-10 relative">
             <h2 className="text-slate-500 font-bold text-lg mb-2 ml-1">
