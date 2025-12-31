@@ -88,9 +88,9 @@ export default function App() {
         </header>
 
         <form onSubmit={lookupPostcode} className="w-full max-w-xl mb-10 ">
-  <p className="text-slate-500 font-bold text-lg mb-2 ml-1">
+  <h2 className="text-slate-500 font-bold text-lg mb-2 ml-1">
     <label htmlFor="postcode">Enter a postcode</label>
-  </p>
+  </h2>
   
 
   <div className="flex flex-col sm:flex-row gap-3">
