@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Sitemaps help search engines find your pages faster
+Sitemap: https://chris-barrett-ddts.github.io/postcode-lookup/sitemap.xml
