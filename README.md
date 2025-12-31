@@ -38,7 +38,6 @@ A fast, mobile-first Progressive Web App (PWA) that converts UK postcodes into N
       ```bash
       npm run build
 
-
 ## 📱 PWA & Offline Support
 
 This app is configured with a Service Worker that caches API responses and map tiles. To test offline functionality:

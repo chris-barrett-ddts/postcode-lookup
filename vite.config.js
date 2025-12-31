@@ -12,6 +12,7 @@ export default defineConfig({
       // This helper ensures the manifest is generated correctly with the base path
       includeManifestIcons: true,
       workbox: {
+        navigateFallbackDenylist: [/sitemap\.xml/, /robots\.txt/],
         globPatterns: ['**/*.{js,css,html,ico,png,svg}'], // Cache all local assets
         runtimeCaching: [
           {
