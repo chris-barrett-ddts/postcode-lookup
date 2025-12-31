@@ -62,18 +62,18 @@ export default defineConfig({
         start_url: '/postcode-lookup/',
         icons: [
           {
-            src: 'postcodeFaviocon.png',
+            src: 'postcodeFavicon.png',
             sizes: '192x192',
             type: 'image/png'
           },
           {
-            src: 'postcodeFaviocon.png',
+            src: 'postcodeFavicon.png',
             sizes: '512x512',
             type: 'image/png',
             purpose: 'any'
           },
           {
-            src: 'postcodeFaviocon.png',
+            src: 'postcodeFavicon.png',
             sizes: '512x512',
             type: 'image/png',
             purpose: 'maskable'
