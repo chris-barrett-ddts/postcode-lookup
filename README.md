@@ -1,16 +1,53 @@
-# React + Vite
+# UK National Grid Reference Finder (PWA)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A fast, mobile-first Progressive Web App (PWA) that converts UK postcodes into National Grid References (OSGB36) and Decimal Coordinates (WGS84). 
 
-Currently, two official plugins are available:
+**Live Demo:** [https://chris-barrett-ddts.github.io/postcode-lookup/](https://chris-barrett-ddts.github.io/postcode-lookup/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Features
 
-## React Compiler
+- **Instant Lookup:** Convert any UK postcode to Eastings, Northings, and NGR.
+- **Interactive Map:** Visualizes the location using Leaflet and OpenStreetMap.
+- **PWA Ready:** Install it on your phone or desktop for a native app experience.
+- **Offline Mode:** Uses Workbox caching to allow lookups of previously searched postcodes without an internet connection.
+- **Precision:** Uses the `geodesy` library for accurate coordinate transformation.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🛠️ Tech Stack
 
-## Expanding the ESLint configuration
+- **Framework:** [React](https://reactjs.org/) (via Vite)
+- **Styling:** [Tailwind CSS](https://tailwindcss.com/)
+- **Mapping:** [React-Leaflet](https://react-leaflet.js.org/)
+- **PWA Engine:** [Vite PWA Plugin](https://vite-pwa-org.netlify.app/)
+- **API:** [Postcodes.io](https://postcodes.io/)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 📦 Installation & Setup
+
+1. **Clone the repository:**
+   ```bash
+   git clone [https://github.com/chris-barrett-ddts/postcode-lookup.git](https://github.com/chris-barrett-ddts/postcode-lookup.git)
+
+2. **Install dependencies:**
+     ```bash
+      npm install
+
+3. **Run in development mode:**
+     ```bash
+      npm run dev
+
+4. **Build for production:**
+      ```bash
+      npm run build
+
+
+## 📱 PWA & Offline Support
+
+This app is configured with a Service Worker that caches API responses and map tiles. To test offline functionality:
+
+Search for a postcode while online.
+
+Turn off your internet (or use DevTools "Offline" mode).
+
+Search for the same postcode again; the data will load instantly from the cache.
+
+## 📄 License
+MIT
