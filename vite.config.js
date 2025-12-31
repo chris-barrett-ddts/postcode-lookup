@@ -10,7 +10,7 @@ export default defineConfig({
     VitePWA({
       registerType: 'autoUpdate',
       // This helper ensures the manifest is generated correctly with the base path
-      includeManifestIcons: true, 
+      includeManifestIcons: true,
       workbox: {
         globPatterns: ['**/*.{js,css,html,ico,png,svg}'], // Cache all local assets
         runtimeCaching: [
@@ -51,7 +51,7 @@ export default defineConfig({
         start_url: '/postcode-lookup/',
         icons: [
           {
-            src: 'postcodeFaviocon.png', // Ensure this is in /public/
+            src: 'postcodeFaviocon.png',
             sizes: '192x192',
             type: 'image/png'
           },
@@ -59,7 +59,7 @@ export default defineConfig({
             src: 'postcodeFaviocon.png',
             sizes: '512x512',
             type: 'image/png',
-            purpose: 'any' 
+            purpose: 'any'
           },
           {
             src: 'postcodeFaviocon.png',
