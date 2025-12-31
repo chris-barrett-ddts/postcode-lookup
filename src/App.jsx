@@ -103,7 +103,7 @@ export default function App() {
           <h1 className="text-4xl font-black tracking-tight text-black-950">Find a UK National Grid Reference</h1>
           <p className="text-slate-500 font-medium">Converts postcodes to OSGB36 & WGS84</p>
         </header>
-
+        <main>
         <form onSubmit={lookupPostcode} className="w-full max-w-xl mb-10 ">
           <h2 className="text-slate-500 font-bold text-lg mb-2 ml-1">
             <label htmlFor="postcode">Enter a postcode</label>
@@ -125,7 +125,7 @@ export default function App() {
             </button>
           </div>
         </form>
-
+        
         {error && <div className="text-center text-red-500 font-bold mb-8">{error}</div>}
 
         {data && (
@@ -173,6 +173,7 @@ export default function App() {
             </div>
           </div>
         )} 
+        </main>
       </div>
     </div>
   );

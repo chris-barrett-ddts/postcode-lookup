@@ -15,6 +15,17 @@ export default defineConfig({
         globPatterns: ['**/*.{js,css,html,ico,png,svg}'], // Cache all local assets
         runtimeCaching: [
           {
+          urlPattern: /\.(?:js|css|png|jpg|jpeg|svg|gif)$/,
+          handler: 'CacheFirst', // Forces browser to use cache, ignoring short server headers
+          options: {
+            cacheName: 'static-assets',
+            expiration: {
+              maxEntries: 50,
+              maxAgeSeconds: 30 * 24 * 60 * 60, // 30 Days
+            },
+          },
+          },
+          {
             urlPattern: ({ url }) => url.origin === 'https://api.postcodes.io',
             handler: 'CacheFirst',
             options: {
