@@ -97,8 +97,7 @@ export default function App() {
     <input 
       type="text"
       id="postcode"
-      placeholder="e.g. SW1A 1AA"
-      /* Added min-w-0 and w-full to prevent the input from forcing its own width */
+      placeholder="e.g. PE12 6DE"
       className="w-full min-w-0 flex-1 px-5 py-4 rounded-lg border-2 border-white shadow-sm focus:border-yellow-500 outline-none uppercase font-bold text-lg transition-all"
       value={postcode}
       onChange={(e) => setPostcode(e.target.value)}
