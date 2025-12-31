@@ -4,7 +4,8 @@ import './index.css'
 import App from './App.jsx'
 import { registerSW } from 'virtual:pwa-register'
 
-const updateSW = registerSW({
+// Automatically registering the service worker for the PWA
+registerSW({
   onNeedRefresh() {
     // Optional: Logic to show a "New content available" toast/prompt
   },
