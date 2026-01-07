@@ -195,16 +195,32 @@ export default function App() {
               <label htmlFor="postcode">Enter a postcode</label>
             </h2>
             <div className="flex flex-col sm:flex-row gap-3">
-              <input
-                type="text"
-                id="postcode"
-                placeholder="e.g. PE12 6DE"
-                /* Added dark:bg-slate-900, dark:text-white, and dark:focus:border-green-500 */
-                className={`w-full min-w-0 flex-1 px-5 py-4 rounded-lg border-2 shadow-sm outline-none uppercase font-bold text-lg transition-all
-          text-4xl tracking-tight  transition-colors ${darkMode ? 'border-slate-800 bg-slate-900 text-white focus:border-green-700' : 'bg-slate-100 border-white focus:border-yellow-400'} `}
-                value={postcode}
-                onChange={(e) => setPostcode(e.target.value)}
-              />
+<input
+  type="text"
+  id="postcode"
+  placeholder="e.g. PE12 6DE"
+  className={`
+    w-full min-w-0 flex-1 px-5 py-4 rounded-lg border-2 shadow-sm outline-none 
+    uppercase font-bold text-xl tracking-tight
+    
+    /* FIX: Only transition border and text. 
+       Do NOT transition background-color, or you will see the white flash. */
+    transition-[border-color,color] duration-200 ease-in-out
+    
+    ${darkMode 
+      ? 'bg-slate-900 border-slate-800 text-white focus:border-green-700' 
+      : 'bg-slate-100 border-white text-slate-900 focus:border-yellow-400'
+    }
+
+    /* AUTOFILL HACK */
+    ${darkMode 
+      ? '[&:-webkit-autofill]:shadow-[inset_0_0_0px_1000px_#0f172a] [&:-webkit-autofill]:[-webkit-text-fill-color:#ffffff]' 
+      : '[&:-webkit-autofill]:shadow-[inset_0_0_0px_1000px_#f1f5f9] [&:-webkit-autofill]:[-webkit-text-fill-color:#0f172a]'
+    }
+  `}
+  value={postcode}
+  onChange={(e) => setPostcode(e.target.value)}
+/>
               <button
                 type="submit"
                 className={`w-full sm:w-auto  text-white font-bold px-8 py-4 rounded-lg shadow-lg transition-transform active:scale-95 whitespace-nowrap
@@ -272,7 +288,7 @@ export default function App() {
                   {/* Using CartoDB Voyager (lighter than Dark Matter) */}
                   <TileLayer 
                     url={darkMode 
-                      ? "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png" 
+                      ? "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png" 
                       : "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     } 
                     attribution={darkMode 
